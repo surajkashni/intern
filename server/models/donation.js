@@ -8,7 +8,7 @@ const donationSchema = new mongoose.Schema(
       type: ObjectId,
       ref:"User"
     },
-    
+    description:String,
   },
   { timestamps: true }
 );

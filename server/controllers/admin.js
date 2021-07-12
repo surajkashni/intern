@@ -26,7 +26,7 @@ const Request = require("../models/request");
     }
 //for verification
     exports.verification=async(req,res)=>{
-        let user= await User.findOneAndUpdate({email:req.user.email},{verified:"true"}).exec();
+        let user= await User.findOneAndUpdate({email:req.body.email},{verified:"true"}).exec();
         res.json({ok:true});
 
     }

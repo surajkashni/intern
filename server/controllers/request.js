@@ -9,7 +9,7 @@ exports.donation=async(req,res)=>{
     if(user.role==="donor"){
         let newdonation=await new Donation({
             info:user._id,
-            category:req.body.category,
+            
             description:req.body.description,
         }).populate("info").save();
         await User.findOneAndUpdate({email:req.user.email},{infoDon:newdonation._id}).exec(); 
@@ -27,7 +27,7 @@ exports.helpreq=async(req,res)=>{
     if(user.role==="requester"){
         let newRequest=await new Request({
             info:user._id,
-            category:req.body.category,
+            
             description:req.body.description,
         }).populate("info").save();
         await User.findOneAndUpdate({email:req.user.email},{infoReq:newRequest._id}).exec(); 
