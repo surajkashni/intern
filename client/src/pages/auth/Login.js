@@ -1,44 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { auth, googleAuthProvider } from "../../firebase";
-import { toast } from "react-toastify";
-import { Button } from "antd";
-import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { createOrUpdateUser,login } from "../../functions/auth";
+import React, { useState, useEffect } from 'react';
+import { auth, googleAuthProvider } from '../../firebase';
+import { toast } from 'react-toastify';
+import { Button } from 'react-bootstrap';
+import { MailOutlined, GoogleOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { createOrUpdateUser, login } from '../../functions/auth';
 
 const Login = ({ history }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    let intendent=history.location.state;
-    if(intendent){
+    let intendent = history.location.state;
+    if (intendent) {
       return;
-    }else{
-      if (user && user.token) history.push("/");
-
+    } else {
+      if (user && user.token) history.push('/user/dashboard');
     }
-    if (user && user.token) history.push("/");
+    if (user && user.token) history.push('/user/dashboard');
   }, [user, history]);
 
   let dispatch = useDispatch();
 
   const roleBasedRedirect = (res) => {
-    let intendent=history.location.state;
-    if(intendent){
+    let intendent = history.location.state;
+    if (intendent) {
       history.push(intendent.from);
-    }else{
-      if (res.data.role === "admin") {
-        history.push("/admin/dashboard");
+    } else {
+      if (res.data.role === 'admin') {
+        history.push('/admin/dashboard');
       } else {
-        history.push("/user/history");
+        history.push('/user/dashboard');
       }
     }
-    
   };
 
   const handleSubmit = async (e) => {
@@ -54,13 +52,19 @@ const Login = ({ history }) => {
       login(idTokenResult.token)
         .then((res) => {
           dispatch({
-            type: "LOGGED_IN_USER",
+            type: 'LOGGED_IN_USER',
             payload: {
               name: res.data.name,
               email: res.data.email,
               token: idTokenResult.token,
               role: res.data.role,
               _id: res.data._id,
+              address: res.data.address,
+              mobile: res.data.mobile,
+              pin: res.data.pin,
+              id: res.data.id,
+              status: res.data.status,
+              verified: res.data.verified,
             },
           });
           roleBasedRedirect(res);
@@ -84,13 +88,19 @@ const Login = ({ history }) => {
         createOrUpdateUser(idTokenResult.token)
           .then((res) => {
             dispatch({
-              type: "LOGGED_IN_USER",
+              type: 'LOGGED_IN_USER',
               payload: {
                 name: res.data.name,
                 email: res.data.email,
                 token: idTokenResult.token,
                 role: res.data.role,
                 _id: res.data._id,
+                address: res.data.address,
+                mobile: res.data.mobile,
+                pin: res.data.pin,
+                id: res.data.id,
+                status: res.data.status,
+                verified: res.data.verified,
               },
             });
             roleBasedRedirect(res);
@@ -130,15 +140,10 @@ const Login = ({ history }) => {
       <br />
       <Button
         onClick={handleSubmit}
-        type="primary"
-        className="mb-3"
-        block
-        shape="round"
-        icon={<MailOutlined />}
-        size="large"
+        className="mb-3 btn btn-primary"
         disabled={!email || password.length < 6}
       >
-        Login with Email/Password
+        Login
       </Button>
     </form>
   );
