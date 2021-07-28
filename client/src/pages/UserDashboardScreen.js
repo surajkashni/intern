@@ -63,17 +63,15 @@ const UserDashboardScreen = () => {
                   alt="user"
                 />
                 <div className="d-flex justify-content-center mt-3 ">
-                  {
-                    (user.verified = true ? (
-                      <span className="badge badge-pill badge-success my-2">
-                        Verified
-                      </span>
-                    ) : (
-                      <span className="badge badge-pill badge-danger my-2">
-                        Not Verified
-                      </span>
-                    ))
-                  }
+                  {user.verified === 'true' ? (
+                    <span className="badge badge-pill badge-success my-2">
+                      Verified
+                    </span>
+                  ) : (
+                    <span className="badge badge-pill badge-danger my-2">
+                      Not Verified
+                    </span>
+                  )}
                   {user.status === 'active' ? (
                     <span className="badge badge-pill badge-info my-2 ml-2">
                       Active
@@ -148,46 +146,46 @@ const UserDashboardScreen = () => {
 
             {user.role === 'donor' && (
               <div>
-                <button
-                  className="btn btn-block btn-primary"
-                  onClick={handleShow}
-                >
-                  Create Donation
-                </button>
-                {
-                  (user.verified = true ? (
+                {user.verified === 'true' ? (
+                  <div>
+                    <button
+                      className="btn btn-block btn-primary"
+                      onClick={handleShow}
+                    >
+                      Create Donation
+                    </button>
                     <Link
                       to="/user/requests"
                       className="btn btn-success btn-rounded btn-block"
                     >
                       View Requests
                     </Link>
-                  ) : (
-                    <></>
-                  ))
-                }
+                  </div>
+                ) : (
+                  <div>You are Not verified yet by Admin</div>
+                )}
               </div>
             )}
             {user.role === 'requester' && (
               <div>
-                <button
-                  className="btn btn-block btn-primary"
-                  onClick={handleShow}
-                >
-                  Create Request
-                </button>
-                {
-                  (user.verified = true ? (
+                {user.verified === 'true' ? (
+                  <div>
+                    <button
+                      className="btn btn-block btn-primary"
+                      onClick={handleShow}
+                    >
+                      Create Request
+                    </button>
                     <Link
                       to="/user/donations"
                       className="btn btn-info btn-rounded btn-block"
                     >
                       View Donations
                     </Link>
-                  ) : (
-                    <></>
-                  ))
-                }
+                  </div>
+                ) : (
+                  <div>You are Not verified yet by Admin</div>
+                )}
               </div>
             )}
 
