@@ -62,7 +62,7 @@ const RegisterComplete = ({ history }) => {
           mobile,
           address,
           id,
-          status
+          status,images
         )
           .then((res) => {
             console.log('suraj', res);
@@ -149,7 +149,7 @@ const RegisterComplete = ({ history }) => {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <FileUpload images={images} setimages={setImages} />
+      <FileUpload images={images} setImages={setImages} />
       <br />
       <button type="submit" className="btn btn-raised p-2 btn-info">
         Complete Registration
