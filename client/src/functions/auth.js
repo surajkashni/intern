@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const createOrUpdateUser = async (authtoken,name,pin,role,mobile,address,id,status,img) => {
+export const createOrUpdateUser = async (authtoken,name,pin,role,mobile,address,id,status,images) => {
   return await axios.post(
     `${process.env.REACT_APP_API}/create-or-update-user`,
-    { name,mobile,pin,address,role,id,status,img},
+    { name,mobile,pin,address,role,id,status,images},
     {
       headers: {
         authtoken,
