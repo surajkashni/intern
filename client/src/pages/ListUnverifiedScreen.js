@@ -29,6 +29,7 @@ const ListUnverifiedScreen = ({ history }) => {
           <thead>
             <tr>
               <th>S.No</th>
+              <th>Image</th>
               <th>Name</th>
               <th>Email</th>
               <th>Mobile</th>
@@ -42,6 +43,7 @@ const ListUnverifiedScreen = ({ history }) => {
               unverified.map((unv, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
+                  <td><img width="200px" src={unv.img[0}/> </td>
                   <td>{unv.name}</td>
                   <td>{unv.email}</td>
                   <td>{unv.mobile}</td>
